@@ -118,8 +118,51 @@ body::before{content:"";position:fixed;top:-28px;left:-28px;width:calc(100% + 28
 .js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
 .js .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.js .reveal{opacity:1;transform:none}}
+
+/* ===== مستوى تاني من الحركات الاحترافية (نفس الألوان) ===== */
+html{scroll-behavior:smooth}
+section{scroll-margin-top:84px}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;background:var(--accent);transform:scaleX(0);transform-origin:left;pointer-events:none}
+header{position:sticky;top:0;z-index:25;transition:box-shadow .3s ease}
+header .wrap{transition:padding .3s ease}
+header.scrolled{box-shadow:0 10px 28px rgba(17,20,24,.28)}
+header.scrolled .wrap{padding-top:8px;padding-bottom:8px}
+
+.hero-ghost{position:absolute;left:0;bottom:-.2em;display:flex;width:max-content;font-weight:900;font-size:clamp(120px,20vw,280px);line-height:1;color:transparent;-webkit-text-stroke:2px rgba(17,20,24,.06);direction:ltr;white-space:nowrap;pointer-events:none;user-select:none;animation:ghost 70s linear infinite}
+.hero-ghost span{flex:none}
+@keyframes ghost{to{transform:translateX(-50%)}}
+.hero-glow{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s ease;background-image:radial-gradient(rgba(17,20,24,.38) 1.7px,transparent 1.8px);background-size:26px 26px;-webkit-mask-image:radial-gradient(circle 190px at var(--sx,50%) var(--sy,50%),#000,transparent);mask-image:radial-gradient(circle 190px at var(--sx,50%) var(--sy,50%),#000,transparent);animation:heroDots 30s linear infinite}
+.hero:hover .hero-glow{opacity:1}
+
+.marquee{background:var(--ink);color:#fff;overflow:hidden;direction:ltr;padding:14px 0}
+.marquee .track{display:flex;width:max-content;animation:marq 32s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee .grp{display:flex;flex:none}
+.marquee .grp span{display:flex;align-items:center;white-space:nowrap;padding:0 28px;font-weight:900;font-size:20px;letter-spacing:.14em;text-transform:uppercase}
+.marquee .grp span::after{content:"";flex:none;width:8px;height:8px;margin-left:56px;background:var(--accent);transform:rotate(45deg)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;padding-top:40px}
+.stat{position:relative;background:#fff;border-radius:20px;padding:24px 22px 20px;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease}
+.stat::before{content:"";position:absolute;left:0;top:0;height:4px;width:44px;background:var(--accent);border-radius:0 0 6px 0;transition:width .35s ease}
+.stat:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(17,20,24,.12)}
+.stat:hover::before{width:100%}
+.stat b{display:block;font-size:40px;line-height:1.1;font-weight:900;direction:ltr}
+.stat span{display:block;margin-top:4px;font-size:16px;font-weight:600;color:var(--muted)}
+
+.card{position:relative;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+.card:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-6px);box-shadow:0 18px 38px rgba(17,20,24,.18)}
+.card.tilting{transition:transform .1s linear,box-shadow .25s ease}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .3s ease;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.35),transparent 55%)}
+.card:hover::after{opacity:1}
+
+.btn{position:relative;overflow:hidden}
+.ripple{position:absolute;border-radius:50%;background:currentColor;opacity:.2;transform:scale(0);animation:rip .6s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(1);opacity:0}}
 </style>
 
+
+<div class="progress" id="progress" aria-hidden="true"></div>
 
 <header>
 <div class="wrap">
@@ -135,6 +178,8 @@ body::before{content:"";position:fixed;top:-28px;left:-28px;width:calc(100% + 28
 
 <main>
 <div class="hero">
+<div class="hero-ghost" aria-hidden="true"><span>SNEAKERS — BESSSO — </span><span>SNEAKERS — BESSSO — </span></div>
+<div class="hero-glow" aria-hidden="true"></div>
 <div class="wrap">
 <span class="tag">توصيل لكل محافظات مصر 🇪🇬</span>
 <h1>Bessso Sneakers... لحد باب بيتك في أي محافظة</h1>
@@ -146,7 +191,15 @@ body::before{content:"";position:fixed;top:-28px;left:-28px;width:calc(100% + 28
 </div>
 </div>
 
+<div class="marquee" aria-hidden="true"><div class="track" id="marq"></div></div>
+
 <div class="wrap">
+<div class="stats" id="stats">
+<div class="stat"><b data-count="12" id="statModels">12</b><span>موديل كوتشي</span></div>
+<div class="stat"><b data-count="27">27</b><span>محافظة بنوصّلها</span></div>
+<div class="stat"><b data-count="3">3</b><span>خطوات بس للطلب</span></div>
+<div class="stat"><b>36–46</b><span>المقاسات المتاحة</span></div>
+</div>
 <section id="products">
 <div class="top">
 <h2>الكوتشيات</h2>
@@ -454,6 +507,100 @@ renderGrid();
     el.classList.add("reveal");
     if (el.tagName === "LI") el.style.transitionDelay = (i % 6) * 70 + "ms";
     io.observe(el);
+  });
+})();
+
+(function () {
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = window.matchMedia && matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  var mq = document.getElementById("marq");
+  if (mq && typeof PRODUCTS !== "undefined") {
+    var bs = [];
+    PRODUCTS.forEach(function (p) { if (bs.indexOf(p.brand) === -1) bs.push(p.brand); });
+    var one = bs.map(function (b) { return "<span>" + esc(b) + "</span>"; }).join("");
+    var grp = '<div class="grp">' + one + one + "</div>";
+    mq.innerHTML = grp + grp;
+  }
+
+  var models = document.getElementById("statModels");
+  if (models && typeof PRODUCTS !== "undefined") models.setAttribute("data-count", PRODUCTS.length);
+  var counters = document.querySelectorAll("[data-count]");
+  function run(el) {
+    var to = Number(el.getAttribute("data-count")) || 0;
+    if (reduce || !to) { el.textContent = to; return; }
+    var t0 = null;
+    function step(t) {
+      if (!t0) t0 = t;
+      var k = Math.min((t - t0) / 1400, 1);
+      el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if ("IntersectionObserver" in window && !reduce) {
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { run(en.target); cio.unobserve(en.target); }
+      });
+    }, { threshold: 0.4 });
+    Array.prototype.forEach.call(counters, function (el) { el.textContent = "0"; cio.observe(el); });
+  } else {
+    Array.prototype.forEach.call(counters, function (el) { el.textContent = el.getAttribute("data-count"); });
+  }
+
+  var bar = document.getElementById("progress"), hd = document.querySelector("header"), tick = false;
+  function onScroll() {
+    var h = document.documentElement, max = h.scrollHeight - h.clientHeight;
+    if (bar) bar.style.transform = "scaleX(" + (max > 0 ? h.scrollTop / max : 0) + ")";
+    if (hd) hd.classList.toggle("scrolled", h.scrollTop > 8);
+    tick = false;
+  }
+  window.addEventListener("scroll", function () {
+    if (!tick) { tick = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  onScroll();
+
+  var hero = document.querySelector(".hero");
+  if (hero && fine && !reduce) {
+    hero.addEventListener("pointermove", function (e) {
+      var r = hero.getBoundingClientRect();
+      hero.style.setProperty("--sx", (e.clientX - r.left) + "px");
+      hero.style.setProperty("--sy", (e.clientY - r.top) + "px");
+    });
+  }
+
+  var grid = document.getElementById("grid");
+  function untilt(c) {
+    c.classList.remove("tilting");
+    ["--rx", "--ry", "--mx", "--my"].forEach(function (v) { c.style.removeProperty(v); });
+  }
+  if (grid && fine && !reduce) {
+    grid.addEventListener("pointermove", function (e) {
+      var c = e.target.closest && e.target.closest(".card");
+      if (!c || c.classList.contains("out")) return;
+      var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      c.style.setProperty("--ry", ((x - 0.5) * 6).toFixed(2) + "deg");
+      c.style.setProperty("--rx", ((0.5 - y) * 6).toFixed(2) + "deg");
+      c.style.setProperty("--mx", (x * 100).toFixed(1) + "%");
+      c.style.setProperty("--my", (y * 100).toFixed(1) + "%");
+      c.classList.add("tilting");
+    });
+    grid.addEventListener("pointerout", function (e) {
+      var c = e.target.closest && e.target.closest(".card");
+      if (!c || (e.relatedTarget && c.contains(e.relatedTarget))) return;
+      untilt(c);
+    });
+  }
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest(".btn:not(.btn-off)");
+    if (!b || reduce) return;
+    var r = b.getBoundingClientRect(), s = Math.max(r.width, r.height) * 2, sp = document.createElement("span");
+    sp.className = "ripple";
+    sp.style.cssText = "width:" + s + "px;height:" + s + "px;left:" + (e.clientX - r.left - s / 2) + "px;top:" + (e.clientY - r.top - s / 2) + "px";
+    b.appendChild(sp);
+    setTimeout(function () { sp.remove(); }, 650);
   });
 })();
 
