@@ -80,6 +80,44 @@ footer .wrap{padding-top:24px;padding-bottom:24px;display:flex;flex-wrap:wrap;ju
 .bot-form input{flex:1;min-width:0;min-height:44px;border:2px solid #C9CDD3;border-radius:12px;padding:0 12px;font-family:inherit;font-size:16px;color:var(--ink);background:#fff}
 .bot-form .btn{min-height:44px;padding:0 18px}
 @media (max-width:480px){.float-wa{padding:0 16px}.float-wa span{display:none}}
+
+/* ===== حركات احترافية للخلفية والصفحة (من غير تغيير الألوان) ===== */
+body::before{content:"";position:fixed;top:-28px;left:-28px;width:calc(100% + 28px);height:calc(100% + 28px);z-index:-1;pointer-events:none;background-image:radial-gradient(rgba(17,20,24,.09) 1.5px,transparent 1.6px);background-size:28px 28px;animation:drift 36s linear infinite;will-change:transform}
+@keyframes drift{to{transform:translate(28px,28px)}}
+
+.hero{position:relative;overflow:hidden;background-image:linear-gradient(90deg,transparent,var(--accent),transparent);background-size:35% 3px;background-repeat:no-repeat;background-position:-35% 100%;animation:sweep 7s ease-in-out infinite}
+@keyframes sweep{0%{background-position:-35% 100%}100%{background-position:135% 100%}}
+.hero .wrap{position:relative;z-index:1}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(17,20,24,.12) 1.5px,transparent 1.6px);background-size:26px 26px;-webkit-mask-image:radial-gradient(ellipse at center,transparent 20%,#000 95%);mask-image:radial-gradient(ellipse at center,transparent 20%,#000 95%);animation:heroDots 30s linear infinite}
+@keyframes heroDots{to{background-position:26px 26px}}
+.hero::after{content:"";position:absolute;width:380px;height:380px;border-radius:50%;right:-110px;top:-150px;background:radial-gradient(circle,rgba(17,20,24,.08),transparent 70%);pointer-events:none;animation:floaty 16s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-40px,30px) scale(1.12)}}
+
+.orange,.contact{position:relative;overflow:hidden}
+.orange>*,.contact>*{position:relative;z-index:1}
+.orange::after,.contact::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.16),transparent);transform:translateX(-160%) skewX(-18deg);animation:sheen 9s ease-in-out infinite;pointer-events:none}
+.contact::after{background:linear-gradient(100deg,transparent,rgba(255,255,255,.07),transparent)}
+@keyframes sheen{0%,55%{transform:translateX(-160%) skewX(-18deg)}100%{transform:translateX(380%) skewX(-18deg)}}
+
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.hero .tag,.hero h1,.hero p,.hero .cta{animation:rise .8s cubic-bezier(.2,.7,.2,1) backwards}
+.hero h1{animation-delay:.12s}.hero p{animation-delay:.24s}.hero .cta{animation-delay:.36s}
+.card{animation:rise .6s cubic-bezier(.2,.7,.2,1) backwards;transition:transform .25s ease,box-shadow .25s ease}
+.card:nth-child(3n+2){animation-delay:.08s}.card:nth-child(3n){animation-delay:.16s}
+.card:hover{transform:translateY(-5px);box-shadow:0 14px 30px rgba(17,20,24,.14)}
+.pic{overflow:hidden}
+.pic img{transition:transform .5s ease}
+.card:hover .pic img{transform:scale(1.05)}
+.btn,.chip,.bot-opt{transition:transform .2s ease,box-shadow .2s ease,background-color .2s,color .2s}
+.btn:not(.btn-off):hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(17,20,24,.18)}
+.chip:hover,.bot-opt:hover{transform:translateY(-2px)}
+.logo i{animation:turn 6s ease-in-out infinite}
+@keyframes turn{0%,70%{transform:rotate(0)}100%{transform:rotate(180deg)}}
+.float-wa{animation:waPulse 2.8s ease-out infinite}
+@keyframes waPulse{0%{box-shadow:0 6px 18px rgba(0,0,0,.28),0 0 0 0 rgba(37,211,102,.45)}70%,100%{box-shadow:0 6px 18px rgba(0,0,0,.28),0 0 0 16px rgba(37,211,102,0)}}
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.js .reveal{opacity:1;transform:none}}
 </style>
 
 
@@ -400,6 +438,22 @@ renderGrid();
     input.value = "";
     said(t);
     free(t);
+  });
+})();
+
+(function () {
+  var els = document.querySelectorAll(".orange,#areas h2,.areas li,#areas p,.contact");
+  if (!("IntersectionObserver" in window) || !els.length) return;
+  document.documentElement.classList.add("js");
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12 });
+  Array.prototype.forEach.call(els, function (el, i) {
+    el.classList.add("reveal");
+    if (el.tagName === "LI") el.style.transitionDelay = (i % 6) * 70 + "ms";
+    io.observe(el);
   });
 })();
 
