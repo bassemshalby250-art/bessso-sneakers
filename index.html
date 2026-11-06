@@ -98,9 +98,9 @@ footer .wrap{padding-top:24px;padding-bottom:24px;display:flex;flex-wrap:wrap;ju
 <main>
 <div class="hero">
 <div class="wrap">
-<span class="tag">توصيل داخل المنصورة</span>
-<h1>Bessso Sneakers... لحد باب بيتك</h1>
-<p>اختار الموديل والمقاس وابعتلنا على واتساب، وإحنا نرتب لك التوصيل داخل المنصورة. اسأل عن المتاح والسعر قبل ما تطلب.</p>
+<span class="tag">توصيل لكل محافظات مصر 🇪🇬</span>
+<h1>Bessso Sneakers... لحد باب بيتك في أي محافظة</h1>
+<p>من المنصورة لحد أسوان ومن إسكندرية لحد مطروح، اختار الموديل والمقاس وابعتلنا على واتساب، وإحنا نوصّلهولك لحد باب بيتك في أي مكان في مصر. اسأل عن المتاح والسعر قبل ما تطلب.</p>
 <div class="cta">
 <a class="btn btn-accent" href="#products">شوف الكوتشيات</a>
 <a class="btn btn-light" href="tel:+201127925499">اتصل: 01127925499</a>
@@ -122,21 +122,23 @@ footer .wrap{padding-top:24px;padding-bottom:24px;display:flex;flex-wrap:wrap;ju
 <h2>ازاي تطلب؟</h2>
 <div class="steps">
 <div class="step"><b>١</b><h3>اختار الموديل والمقاس</h3><p>اتفرج على الكوتشيات واختار المقاس من القائمة.</p></div>
-<div class="step"><b>٢</b><h3>اضغط اطلب على واتساب</h3><p>الرسالة بتتكتب لوحدها باسم الموديل والمقاس، وانت تضيف عنوانك في المنصورة.</p></div>
-<div class="step"><b>٣</b><h3>اتفق معانا على الاستلام</h3><p>بنأكد لك التوافر والسعر وميعاد التوصيل داخل المنصورة.</p></div>
+<div class="step"><b>٢</b><h3>اضغط اطلب على واتساب</h3><p>الرسالة بتتكتب لوحدها باسم الموديل والمقاس، وانت تضيف محافظتك وعنوانك.</p></div>
+<div class="step"><b>٣</b><h3>اتفق معانا على الاستلام</h3><p>بنأكد لك التوافر والسعر وتكلفة وميعاد التوصيل لحد بابك في أي محافظة.</p></div>
 </div>
 </div>
 </section>
 
 <section id="areas">
-<h2>التوصيل داخل المنصورة</h2>
+<h2>بنوصّل لكل محافظات الجمهورية 🚚</h2>
 <ul class="areas">
-<li>توريل</li>
-<li>حي الجامعة</li>
-<li>شارع الجمهورية</li>
-<li>المشاية السفلية</li>
-<li>وباقي أحياء المنصورة</li>
+<li>المنصورة والدقهلية</li>
+<li>القاهرة والجيزة</li>
+<li>الإسكندرية والدلتا</li>
+<li>الصعيد من المنيا لأسوان</li>
+<li>القناة وسيناء والبحر الأحمر</li>
+<li>وأي مكان في مصر</li>
 </ul>
+<p>مهما كنت ساكن فين، كوتشيك هيوصلك لحد باب بيتك. ابعتلنا محافظتك على واتساب وهنأكد معاك تكلفة وميعاد التوصيل.</p>
 </section>
 
 <section id="contact">
@@ -165,7 +167,7 @@ footer .wrap{padding-top:24px;padding-bottom:24px;display:flex;flex-wrap:wrap;ju
 <footer>
 <div class="wrap">
 <div><b style="color:#fff">Bessso Sneakers</b></div>
-<div>المنصورة، الدقهلية · 01127925499</div>
+<div>من المنصورة لكل مصر · التوصيل لجميع المحافظات · 01127925499</div>
 </div>
 </footer>
 
@@ -204,7 +206,7 @@ function waLink(text) {
 
 function orderText(p, size) {
   return "السلام عليكم، عاوز أطلب كوتشي " + p.brand + " " + p.name +
-    (size ? " مقاس " + size : "") + " - التوصيل في المنصورة";
+    (size ? " مقاس " + size : "") + " - التوصيل لحد البيت (هكتبلك محافظتي وعنواني)";
 }
 
 function esc(s) {
@@ -266,7 +268,7 @@ function renderGrid() {
   });
 }
 
-var generalMsg = "السلام عليكم، عاوز أسأل عن الكوتشيات المتاحة - التوصيل في المنصورة";
+var generalMsg = "السلام عليكم، عاوز أسأل عن الكوتشيات المتاحة والتوصيل لمحافظتي";
 document.getElementById("topWa").href = waLink(generalMsg);
 document.getElementById("topWa").target = "_blank";
 document.getElementById("contactWa").href = waLink(generalMsg);
@@ -282,7 +284,7 @@ renderGrid();
       form = document.getElementById("botForm"), input = document.getElementById("botInput"),
       closeBtn = document.getElementById("botClose");
   var sel = { p: null, size: "" }, started = false;
-  var AREAS = ["توريل", "حي الجامعة", "شارع الجمهورية", "المشاية السفلية", "منطقة تانية في المنصورة"];
+  var AREAS = ["المنصورة والدقهلية", "القاهرة والجيزة", "الإسكندرية", "الصعيد", "محافظة تانية"];
 
   function add(html, who) {
     var d = document.createElement("div");
@@ -339,16 +341,16 @@ renderGrid();
     setOpts(SIZES.map(function (s) { return { l: String(s), f: function () { sel.size = s; askArea(); } }; }));
   }
   function askArea() {
-    add("ساكن في أنهي منطقة في المنصورة؟", "bot");
+    add("ساكن في أنهي محافظة؟ بنوصّل لكل مصر.", "bot");
     setOpts(AREAS.map(function (a) { return { l: a, f: function () { summary(a); } }; }));
   }
   function summary(area) {
     var p = sel.p;
     var text = "السلام عليكم، عاوز أطلب كوتشي " + p.brand + " " + p.name + " مقاس " + sel.size +
-      " - التوصيل في المنصورة (" + area + ")";
+      " - التوصيل إلى: " + area;
     add("تمام، ده طلبك:<br><b>" + esc(p.brand + " " + p.name) + "</b><br>المقاس: " + esc(sel.size) +
-      "<br>السعر: " + esc(price(p)) + "<br>المنطقة: " + esc(area) +
-      "<br>بنأكد لك التوافر والسعر وميعاد التوصيل على واتساب." +
+      "<br>السعر: " + esc(price(p)) + "<br>المحافظة: " + esc(area) +
+      "<br>بنأكد لك التوافر والسعر وتكلفة وميعاد التوصيل على واتساب." +
       '<a class="btn btn-accent" target="_blank" rel="noopener" href="' + waLink(text) + '">ابعت الطلب على واتساب</a>', "bot");
     setOpts([{ l: "كوتشي تاني", f: askBrand }]);
   }
@@ -358,7 +360,7 @@ renderGrid();
     setOpts([{ l: "اختار كوتشي", f: askBrand }]);
   }
   function showDelivery() {
-    add("بنوصّل لحد باب بيتك داخل المنصورة: " + AREAS.slice(0, 4).join("، ") + " وباقي أحياء المنصورة. ميعاد وتكلفة التوصيل بنأكدها معاك على واتساب.", "bot");
+    add("بنوصّل لحد باب بيتك في كل محافظات الجمهورية، من المنصورة لحد أسوان ومن إسكندرية لحد مطروح. تكلفة وميعاد التوصيل لمحافظتك بنأكدها معاك على واتساب.", "bot");
     setOpts([{ l: "اختار كوتشي", f: askBrand }]);
   }
   function key(p) {
